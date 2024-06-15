@@ -9,7 +9,7 @@ import { NotifyError, NotifySuccess } from "@/components/Toast/Notification";
 import Cookies from "js-cookie";
 import { useUser } from "@/context/UserContext";
 
-export default function SignIn() {
+export default function SignUp() {
   const router = useRouter();
 
   const { setUserData } = useUser();
@@ -17,6 +17,8 @@ export default function SignIn() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
 
   const [loading, setLoading] = useState(false);
 
@@ -25,11 +27,12 @@ export default function SignIn() {
 
     setLoading(true);
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}login`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}register`, {
       method: "POST",
       body: JSON.stringify({
         username: username,
         password: password,
+        email:email
       }),
     })
       .then((response) => {
@@ -40,11 +43,11 @@ export default function SignIn() {
       })
       .then((data) => {
         setUserData(data.data);
-        NotifySuccess(`Successfully logged in`);
+        NotifySuccess(`Successfully signup`);
         Cookies.set("Token", data.data.token);
         setLoading(false);
 
-        router.push("/dashboard");
+        router.push("/auth/signin");
       })
       .catch((error) => {
         setLoading(false);
@@ -72,7 +75,7 @@ export default function SignIn() {
             />
           </Link>
 
-          <p className="2xl:px-20">Fill in all the details to LOGIN</p>
+          <p className="2xl:px-20">Fill in all the details to REGISTER</p>
 
         </div>
       </div>
@@ -102,6 +105,22 @@ export default function SignIn() {
 
             <div className="mb-6">
               <label className="mb-2.5 block font-medium text-black dark:text-white">
+                Email
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Email Address"
+                  value={email}
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                />
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <label className="mb-2.5 block font-medium text-black dark:text-white">
                 Password
               </label>
               <div className="relative">
@@ -119,7 +138,7 @@ export default function SignIn() {
             <div className="mb-5">
               <input
                 type="submit"
-                value="Sign In"
+                value="Sign UP"
                 className="w-full cursor-pointer rounded-lg borderborder-black bg-black p-4 text-white transition hover:bg-opacity-90"
               />
 
@@ -135,8 +154,8 @@ export default function SignIn() {
             <div className="mt-6 text-center text-black">
               <p>
                 Don’t have any account?{" "}
-                <Link href="/auth/signup" className="text-primary">
-                  Sign Up
+                <Link href="/auth/signin" className="text-primary">
+                  Sign In
                 </Link>
               </p>
             </div>

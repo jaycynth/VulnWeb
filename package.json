@@ -9,16 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mui/icons-material": "^5.15.20",
     "@tabler/icons": "^2.1.2",
     "@tabler/icons-react": "^2.1.1",
     "js-cookie": "^3.0.5",
+    "lottie-web": "^5.12.2",
+    "mui-datatables": "^4.3.0",
     "next": "14.2.3",
+    "nextjs-toploader": "^1.6.12",
     "react": "^18",
     "react-dom": "^18",
     "react-toastify": "^10.0.5"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
+    "@types/mui-datatables": "^4.3.12",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
